@@ -26,18 +26,20 @@ public class UpdateActor {
     }
 
     @GetMapping(value = "/UpdateActor", params = {"name", "dob","gender","age","img"})
-    public void createActor(
+    public String updateActor(
             @Param("name")String name,
-            @Param("dob")String dob
+            @Param("dob")String dob,
+            @Param("gender")String gender,
+            @Param("age")String age,
+            @Param("img")String img
     ){
         this.setupAll();
         MongoDatabase mongoDB = mongoClient.getDatabase("IMDB");
         MongoCollection<Document> collection = mongoDB.getCollection("actors");
-        collection.updateOne (eq("name","shreyas"),
-                    combine(Updates.set("dob","12312321"),currentDate("last modified")));
-        //String id = ACTORS.updateOne().getInsertedId().toString();
+        collection.updateOne (eq("name",name),
+                    combine(Updates.set("dob",dob),Updates.set("gender",gender),Updates.set("age",age),Updates.set("img",img),currentDate("last modified")));
         closeAllconnections();
-       // return id;
+        return "modified";
     }
     public void closeAllconnections() {
         mongoClient.close();

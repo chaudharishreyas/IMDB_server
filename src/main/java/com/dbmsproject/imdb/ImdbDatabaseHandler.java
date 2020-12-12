@@ -30,6 +30,6 @@ public class ImdbDatabaseHandler {
         MongoClient mongoClient = MongoClients.create("mongodb+srv://laukik:laukik20@movies.eicjc.mongodb.net/<dbname>?retryWrites=true&w=majority");
         MongoDatabase mongoDatabase = mongoClient.getDatabase("IMDB");
         MongoCollection<Document> movies = mongoDatabase.getCollection("movies");
-        return movies.find(new Document("hello", "world")).first().toString();
+        return "hello world";
     }
 }
